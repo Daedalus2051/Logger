@@ -71,7 +71,15 @@ namespace Logger
                 {
                     StreamWriter log_writer = new StreamWriter(full_path, true);
                     //Date [LOG_TYPE]   Message (Code location)
-                    log_writer.WriteLine("{0}[{1}]\t{2}\t({3})", System.DateTime.Now, logtype, message, code_local);
+                    if (logtype == LOG_TYPE.VERBOSE)
+                    {
+                        Console.WriteLine("{0}[{1}]\t{2}\t({3})", "Out>", logtype, message, code_local);
+                        log_writer.WriteLine("{0}[{1}]\t{2}\t({3})", System.DateTime.Now, logtype, message, code_local);
+                    }
+                    else
+                    {
+                        log_writer.WriteLine("{0}[{1}]\t{2}\t({3})", System.DateTime.Now, logtype, message, code_local);
+                    }
                     log_writer.Close();
 
                     return true;
